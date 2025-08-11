@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  wings:
+    image: ghcr.io/pterodactyl/wings:latest
+    restart: always
+    ports:
+      - "8080:8080"
+      - "2022:2022"
+    tty: true
+    environment:
+      TZ: "UTC"
+      WINGS_UID: 988
+      WINGS_GID: 988
+      WINGS_USERNAME: pterodactyl
+    # Di CodeSandbox, hanya path relatif yang bisa digunakan untuk volume
+    volumes:
+      - "./data/pterodactyl/etc:/etc/pterodactyl"
+      - "./data/pterodactyl/lib:/var/lib/pterodactyl"
+      - "./data/pterodactyl/log:/var/log/pterodactyl"
+      - "./data/pterodactyl/tmp:/tmp/pterodactyl"
+      - "./data/ssl-certs:/etc/ssl/certs:ro"
+    # Docker socket dan container mounting tidak didukung di sandbox
+
+# Network custom dihapus, gunakan default saja
